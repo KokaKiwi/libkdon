@@ -28,36 +28,18 @@ void kdon_print_msgpack(char *data, size_t size)
     printf("\n");
 }
 
-static kdon_t *create_toto()
-{
-    kdon_t *toto = kdon_object();
-
-    kdon_object_set_new(toto, "name", kdon_string("toto"));
-    kdon_object_set_new(toto, "age", kdon_integer(20));
-
-    return toto;
-}
-
 static kdon_t *create_object()
 {
     kdon_t *obj = kdon_array();
 
-    kdon_t *totos = kdon_array();
-    for (int i = 0; i < 2; i++)
-    {
-        kdon_t *toto = create_toto();
+    kdon_t *o = kdon_object();
 
-        kdon_t *parent = kdon_object();
-        kdon_object_set_new(parent, "name", kdon_string("Parent"));
-        kdon_object_set_new(toto, "parent", parent);
+    kdon_object_set_new(o, "name", kdon_string("toto"));
 
-        kdon_array_append_new(totos, toto);
-    }
+    kdon_array_append_new(obj, o);
 
-    kdon_array_append_new(totos, kdon_array());
-
-    kdon_array_append_new(obj, totos);
-
+    kdon_array_append_new(obj, kdon_string("toto"));
+    kdon_array_append_new(obj, kdon_integer(45));
     kdon_array_append_new(obj, kdon_true());
     kdon_array_append_new(obj, kdon_false());
     kdon_array_append_new(obj, kdon_null());

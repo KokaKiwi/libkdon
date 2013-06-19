@@ -89,6 +89,11 @@ char *kdon_encode_xml(kdon_t *kdon, size_t *size);
 char *kdon_encode_yaml(kdon_t *kdon, size_t *size);
 #endif
 
+/* decoding private functions */
+#ifdef HAVE_JANSSON
+kdon_t *kdon_decode_json(const char *data, size_t size, kdon_error_t *error);
+#endif
+
 G_END_DECLS
 
 #endif /* KDON_PRIVATE_H_ */

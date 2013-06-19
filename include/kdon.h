@@ -28,6 +28,18 @@ struct _kdon_t
     size_t refcount;
 };
 
+#define KDON_ERROR_TEXT_LENGTH    160
+#define KDON_ERROR_SOURCE_LENGTH   80
+
+typedef struct _kdon_error_t kdon_error_t;
+struct _kdon_error_t
+{
+    int line;
+    int column;
+    char source[KDON_ERROR_SOURCE_LENGTH];
+    char text[KDON_ERROR_TEXT_LENGTH];
+};
+
 typedef uint64_t kdon_int_t;
 
 #define kdon_typeof(kdon)       ((kdon)->type)
@@ -108,6 +120,7 @@ const char *kdon_type_str(kdon_t *kdon);
 
 /* encode functions */
 char *kdon_encode(kdon_t *kdon, const char *format, size_t *size);
+kdon_t *kdon_decode(const char *data, const char *format, size_t size, kdon_error_t *error);
 
 G_END_DECLS
 

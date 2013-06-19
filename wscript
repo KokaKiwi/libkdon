@@ -54,6 +54,7 @@ def build(bld):
 
     if bld.env.HAVE_JANSSON:
         libcencoder_sources.append('src/encode/json.c')
+        libcencoder_sources.append('src/decode/json.c')
         use_libs.append('jansson')
 
     if bld.env.HAVE_MSGPACK:
@@ -76,9 +77,15 @@ def build(bld):
                             use = use_libs)
 
     if bld.cmd == 'test':
-        bld.program(source = 'main.c',
+        bld.program(source = 'tests/test_build.c',
                     features = 'c',
-                    target = 'kdon_test',
+                    target = 'kdon_test_build',
+                    includes = INCLUDE_DIRS,
+                    linkflags = [OFLAGS],
+                    use = ['libkdon'] + use_libs)
+        bld.program(source = 'tests/test_load.c',
+                    features = 'c',
+                    target = 'kdon_test_load',
                     includes = INCLUDE_DIRS,
                     linkflags = [OFLAGS],
                     use = ['libkdon'] + use_libs)

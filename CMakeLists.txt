@@ -32,6 +32,7 @@ if (JANSSON_FOUND)
 
     include_directories(${JANSSON_INCLUDE_DIRS})
     list(APPEND libkdon_SOURCES src/encode/json.c)
+    list(APPEND libkdon_SOURCES src/decode/json.c)
 
     list(APPEND libkdon_LIBRARIES
         ${JANSSON_LIBRARIES}
@@ -74,8 +75,11 @@ endif (LIBYAML_FOUND)
 add_library(kdon STATIC ${libkdon_SOURCES})
 target_link_libraries(kdon ${libkdon_LIBRARIES})
 
-add_executable(kdon_test main.c)
-target_link_libraries(kdon_test kdon)
+add_executable(kdon_test_build tests/test_build.c)
+target_link_libraries(kdon_test_build kdon)
+
+add_executable(kdon_test_load tests/test_load.c)
+target_link_libraries(kdon_test_load kdon)
 
 configure_file(config.cmake.h kdon_config.h @ONLY)
 
