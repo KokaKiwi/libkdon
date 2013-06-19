@@ -67,7 +67,7 @@ static void kdon_integer_to_yaml(kdon_t *kdon, kdon_integer_t *integer, yaml_emi
     char value[32];
 
     sprintf(value, "%ld", integer->value);
-    yaml_scalar_event_initialize(&event, NULL, (yaml_char_t *) "int", (yaml_char_t *) value, strlen(value), 0, 0, YAML_ANY_SCALAR_STYLE);
+    yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t *) value, strlen(value), 1, 1, YAML_ANY_SCALAR_STYLE);
     kdon_emit(emitter, &event);
 }
 
@@ -77,7 +77,7 @@ static void kdon_real_to_yaml(kdon_t *kdon, kdon_real_t *real, yaml_emitter_t *e
     char value[32];
 
     sprintf(value, "%f", real->value);
-    yaml_scalar_event_initialize(&event, NULL, (yaml_char_t *) "real", (yaml_char_t *) value, strlen(value), 0, 0, YAML_ANY_SCALAR_STYLE);
+    yaml_scalar_event_initialize(&event, NULL, NULL, (yaml_char_t *) value, strlen(value), 1, 1, YAML_ANY_SCALAR_STYLE);
     kdon_emit(emitter, &event);
 }
 

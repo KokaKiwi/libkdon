@@ -100,9 +100,16 @@ char *kdon_encode_json(kdon_t *kdon, size_t *size)
     char *str = json_dumps(json, JSON_COMPACT);
     json_decref(json);
 
-    if (size && str)
+    if (size)
     {
-        *size = strlen(str);
+        if (str)
+        {
+            *size = strlen(str);
+        }
+        else
+        {
+            *size = 0;
+        }
     }
 
     return str;
