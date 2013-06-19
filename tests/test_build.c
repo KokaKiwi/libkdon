@@ -28,21 +28,55 @@ void kdon_print_msgpack(char *data, size_t size)
     printf("\n");
 }
 
+static kdon_t *create_config()
+{
+    kdon_t *config = kdon_object();
+
+    kdon_object_set_new(config, "name", kdon_string("kdon"));
+    kdon_object_set_new(config, "version", kdon_string("0.1.0"));
+    kdon_object_set_new(config, "rev", kdon_integer(1));
+
+    return config;
+}
+
+static kdon_t *create_inventory()
+{
+    kdon_t *inventory = kdon_array();
+
+    kdon_array_append_new(inventory, kdon_string("Candle"));
+
+    return inventory;
+}
+
+static kdon_t *create_player(const char *name, int level)
+{
+    kdon_t *player = kdon_object();
+
+    kdon_object_set_new(player, "name", kdon_string(name));
+    kdon_object_set_new(player, "level", kdon_integer(level));
+    kdon_object_set_new(player, "inventory", create_inventory());
+    kdon_object_set_new(player, "overhigh", kdon_boolean(level > 100));
+
+    return player;
+}
+
+static kdon_t *create_players()
+{
+    kdon_t *players = kdon_array();
+
+    kdon_array_append_new(players, create_player("Kevin", 20));
+    kdon_array_append_new(players, create_player("Big Bowser", 123));
+    kdon_array_append_new(players, create_player("Space", 42));
+
+    return players;
+}
+
 static kdon_t *create_object()
 {
-    kdon_t *obj = kdon_array();
+    kdon_t *obj = kdon_object();
 
-    kdon_t *o = kdon_object();
-
-    kdon_object_set_new(o, "name", kdon_string("toto"));
-
-    kdon_array_append_new(obj, o);
-
-    kdon_array_append_new(obj, kdon_string("toto"));
-    kdon_array_append_new(obj, kdon_integer(45));
-    kdon_array_append_new(obj, kdon_true());
-    kdon_array_append_new(obj, kdon_false());
-    kdon_array_append_new(obj, kdon_null());
+    kdon_object_set_new(obj, "config", create_config());
+    kdon_object_set_new(obj, "players", create_players());
 
     return obj;
 }
@@ -57,7 +91,6 @@ int main(int argc, char **argv)
     printf("=== JSON ===\n");
     str = kdon_encode(obj, "json", &size);
     printf("%s\n", str);
-    printf("Size: %zd\n", size);
     free(str);
 
     printf("\n");

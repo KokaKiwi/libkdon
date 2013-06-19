@@ -128,7 +128,7 @@ char *kdon_encode_xml(kdon_t *kdon, size_t *size)
 
     xmlDocSetRootElement(doc, kdon_to_xml(kdon));
 
-    xmlDocDumpMemory(doc, (xmlChar **) &str, &isize);
+    xmlDocDumpFormatMemory(doc, (xmlChar **) &str, &isize, 1);
     xmlFreeDoc(doc);
 
     if (size)

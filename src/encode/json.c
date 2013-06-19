@@ -97,7 +97,7 @@ static json_t *kdon_to_json(kdon_t *kdon)
 char *kdon_encode_json(kdon_t *kdon, size_t *size)
 {
     json_t *json = kdon_to_json(kdon);
-    char *str = json_dumps(json, JSON_COMPACT);
+    char *str = json_dumps(json, JSON_INDENT(4));
     json_decref(json);
 
     if (size)
