@@ -53,6 +53,9 @@ static kdon_t *create_object()
 
         kdon_array_append_new(totos, toto);
     }
+
+    kdon_array_append_new(totos, kdon_array());
+
     kdon_array_append_new(obj, totos);
 
     kdon_array_append_new(obj, kdon_true());

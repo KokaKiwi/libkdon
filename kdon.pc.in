@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=${prefix}/include
+
+Name: KDON
+Description: An intermediate Object Notation library to import/export object data from multiples formats
+Version: @VERSION@
+Libs: -L${libdir} -lkdon
+Cflags: -I${includedir}
